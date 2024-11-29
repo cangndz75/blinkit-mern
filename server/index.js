@@ -5,6 +5,7 @@ dotenv.config();
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import helmet from "helmet";
+import connectDb from "./config/connectDB.js";
 
 const app = express();
 app.use(
@@ -24,6 +25,8 @@ app.use(
 
 const PORT = 8080 || process.env.PORT;
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+connectDb().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
 });
